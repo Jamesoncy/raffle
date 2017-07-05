@@ -1,0 +1,11 @@
+To Start the app, just type, "npm run production"
+
+For Starters, like Codeigniter or any other PHP Framework, we are implementing an MVC Pattern
+you can code under app/Controller for Controllers with a (Name)Controller.js naming convention, same pattern with Models.
+
+You can Add your routes under app/config/routes.js
+
+with Policies, it will act as a middleware before your endpoint activates, you can add policies under app/Policies Folder
+then inject policy to your Controller function in app/config/policies.js
+
+this is the version 1 of this framework, and it is still to be complete
