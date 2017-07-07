@@ -9,9 +9,9 @@ const conn = {
 
 class Model {
 
-	async query(query){
+	async query(query, parameters = null){
 		let connection = await mysql.createConnection(conn);
-		const [rows, fields] = await connection.execute(query);
+		const [rows, fields] = await connection.execute(query, parameters);
 		return await rows;
 	}
 

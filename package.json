@@ -28,6 +28,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
+    "bluebird": "^3.5.0",
     "class-autobind": "^0.1.4",
     "cloneextend": "0.0.3",
     "co-mysql": "^1.0.0",
@@ -37,6 +38,7 @@
     "es6-class-auto-bind": "^1.0.0",
     "koa": "^2.2.0",
     "koa-better-body": "^3.0.2",
+    "koa-body-parser": "^1.1.2",
     "koa-convert": "^1.2.0",
     "koa-ejs": "^4.1.0",
     "koa-grace-views": "^1.0.13",
@@ -48,8 +50,10 @@
     "koa2-mysql-wrapper": "^2.0.1",
     "mysql-co": "0.0.4",
     "mysql2": "^1.3.2",
+    "redis": "^2.7.1",
     "require.all": "^2.0.3",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.1.0"
   },
   "dependencies": {
     "async-class": "^0.4.1",

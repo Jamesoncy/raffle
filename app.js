@@ -20,6 +20,10 @@ var _koaBetterBody = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa
 
 var _koaBetterBody2 = _interopRequireDefault(_koaBetterBody);
 
+var _koaBodyParser = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa-body-parser');
+
+var _koaBodyParser2 = _interopRequireDefault(_koaBodyParser);
+
 var _routes = require('C:\\Users\\jamesroncy\\koa_test\\core\\config\\routes.js');
 
 var _routes2 = _interopRequireDefault(_routes);
@@ -53,44 +57,44 @@ var app = new _koa2.default(),
     __ = new _koaRouter2.default(),
     body = new _koaBetterBody2.default(),
     controllers = (0, _require2.default)({
-  dir: './core/Controller',
-  match: /Controller\.js$/i, //only files that end with 'controller.js' 
-  recursive: false,
-  map: function map(name, path, isFile) {
-    return _require2.default.map(name, path, isFile).replace(/Controller$/i, '');
-  }
+	dir: './core/Controller',
+	match: /Controller\.js$/i, //only files that end with 'controller.js' 
+	recursive: false,
+	map: function map(name, path, isFile) {
+		return _require2.default.map(name, path, isFile).replace(/Controller$/i, '');
+	}
 }),
     policies = (0, _require2.default)({
-  dir: './core/Policies'
+	dir: './core/Policies'
 });
 
 app.use((0, _koaViews2.default)(__dirname + '/public/views', {
-  map: {
-    html: 'ejs'
-  }
+	map: {
+		html: 'ejs'
+	}
 }));
 
 _underscore2.default.each(_routes2.default["routes"], function (value, index) {
-  var getVerb = index.split(" "),
-      path = value.split("."),
-      middleware = [];
+	var getVerb = index.split(" "),
+	    path = value.split("."),
+	    middleware = [];
 
-  _underscore2.default.each(_policies2.default["policies"], function (val, ind) {
-    if (path[0] == ind && path[1] in val) {
-      middleware = val[path[1]];
-      return false;
-    }
-  });
+	_underscore2.default.each(_policies2.default["policies"], function (val, ind) {
+		if (path[0] == ind && path[1] in val) {
+			middleware = val[path[1]];
+			return false;
+		}
+	});
 
-  _underscore2.default.each(middleware, function (val, ind) {
-    middleware[ind] = policies[val];
-  });
+	_underscore2.default.each(middleware, function (val, ind) {
+		middleware[ind] = policies[val];
+	});
 
-  middleware.push(controllers[path[0]][path[1]]);
+	middleware.push(controllers[path[0]][path[1]]);
 
-  if (getVerb[0] == "GET") __.get(getVerb[1], (0, _composeMiddleware.compose)(middleware));
+	if (getVerb[0] == "GET") __.get(getVerb[1], (0, _composeMiddleware.compose)(middleware));else if (getVerb[0] == "POST") __.post(getVerb[1], (0, _composeMiddleware.compose)(middleware));
 });
 
-app.use(__.routes());
+app.use((0, _koaBodyParser2.default)()).use(__.routes());
 
 app.listen(3000);

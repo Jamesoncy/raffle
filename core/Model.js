@@ -31,6 +31,8 @@ var Model = function () {
 		key: 'query',
 		value: function () {
 			var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_query) {
+				var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
 				var connection, _ref2, _ref3, rows, fields;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -43,7 +45,7 @@ var Model = function () {
 							case 2:
 								connection = _context.sent;
 								_context.next = 5;
-								return connection.execute(_query);
+								return connection.execute(_query, parameters);
 
 							case 5:
 								_ref2 = _context.sent;
