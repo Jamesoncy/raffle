@@ -12,6 +12,10 @@ var _koa = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa');
 
 var _koa2 = _interopRequireDefault(_koa);
 
+var _koaJson = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa-json');
+
+var _koaJson2 = _interopRequireDefault(_koaJson);
+
 var _koaRouter = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa-router2');
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
@@ -50,6 +54,10 @@ var _koaViews = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa-view
 
 var _koaViews2 = _interopRequireDefault(_koaViews);
 
+var _koaCookie = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\koa-cookie');
+
+var _koaCookie2 = _interopRequireDefault(_koaCookie);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //var compose = require('compose-middleware').compose;
@@ -74,6 +82,8 @@ app.use((0, _koaViews2.default)(__dirname + '/public/views', {
 	}
 }));
 
+__.use((0, _koaCookie2.default)());
+
 _underscore2.default.each(_routes2.default["routes"], function (value, index) {
 	var getVerb = index.split(" "),
 	    path = value.split("."),
@@ -95,6 +105,6 @@ _underscore2.default.each(_routes2.default["routes"], function (value, index) {
 	if (getVerb[0] == "GET") __.get(getVerb[1], (0, _composeMiddleware.compose)(middleware));else if (getVerb[0] == "POST") __.post(getVerb[1], (0, _composeMiddleware.compose)(middleware));
 });
 
-app.use((0, _koaBodyParser2.default)()).use(__.routes());
+app.use((0, _koaJson2.default)()).use((0, _koaBodyParser2.default)()).use(__.routes());
 
 app.listen(3000);

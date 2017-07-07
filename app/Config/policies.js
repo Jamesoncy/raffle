@@ -5,5 +5,8 @@ module.exports.policies = {
 	},
 	"Sample": {
 		"sampleFunction": ["isLoggedIn"]
+	},
+	"User": {
+		"showUserDetails" : ["isLoggedIn"]
 	}
 }

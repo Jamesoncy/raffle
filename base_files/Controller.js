@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import autobind from 'class-autobind';
-import PersonModel from 'Model/PersonModel';
+import PersonModel from 'Model/UserModel';
 import redis from 'redis';
 import bluebird from 'bluebird';
 const test = "none";
@@ -20,8 +20,10 @@ class Controller {
   		return await PersonModel.getData();
   	}
 
-  	async setLoginToken(token){
-
+	async getLoginUser(ctx){
+  		let auth = await client.get(ctx.cookie.get("auth")),
+  			userInfo = await UserModel.getUserRow(auth.id);
+  		return userInfo;
   	}
 
 }

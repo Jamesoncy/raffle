@@ -33,23 +33,30 @@ var UserController = function (_Controller) {
         key: 'checkLogin',
         value: function () {
             var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(ctx, resp) {
-                var _ctx$request$body, username, password;
+                var _ctx$request$body, username, password, checkLogin;
 
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                _ctx$request$body = ctx.request.body, username = _ctx$request$body.username, password = _ctx$request$body.password;
-                                _context.next = 3;
+                                _ctx$request$body = ctx.request.body;
+                                username = _ctx$request$body.username;
+                                password = _ctx$request$body.password;
+                                _context.next = 5;
                                 return _UserModel2.default.checkCredentials(username, password);
 
-                            case 3:
-                                ctx.body = username;
-                                console.log(username);
-                                console.log(password);
-                                //await ctx.body = UserModel.che
+                            case 5:
+                                checkLogin = _context.sent;
 
-                            case 6:
+                                if (checkLogin != false) {
+                                    ctx.cookies.set('auth', [{ token: checkLogin.token, id: checkLogin.id }]);
+                                    ctx.body = {
+                                        token: checkLogin.token,
+                                        message: "Authenticated Successfully"
+                                    };
+                                } else ctx.status = 400;
+
+                            case 7:
                             case 'end':
                                 return _context.stop();
                         }
@@ -62,6 +69,27 @@ var UserController = function (_Controller) {
             }
 
             return checkLogin;
+        }()
+    }, {
+        key: 'showUserDetails',
+        value: function () {
+            var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(ctx, resp) {
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function showUserDetails(_x3, _x4) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return showUserDetails;
         }()
     }]);
 

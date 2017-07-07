@@ -8,9 +8,9 @@ var _classAutobind = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\cla
 
 var _classAutobind2 = _interopRequireDefault(_classAutobind);
 
-var _PersonModel = require('C:\\Users\\jamesroncy\\koa_test\\core\\Model\\PersonModel');
+var _UserModel = require('C:\\Users\\jamesroncy\\koa_test\\core\\Model\\UserModel');
 
-var _PersonModel2 = _interopRequireDefault(_PersonModel);
+var _UserModel2 = _interopRequireDefault(_UserModel);
 
 var _redis = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\redis');
 
@@ -49,7 +49,7 @@ var Controller = function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _PersonModel2.default.getData();
+                return _UserModel2.default.getData();
 
               case 2:
                 return _context.abrupt('return', _context.sent);
@@ -69,13 +69,27 @@ var Controller = function () {
       return userDetails;
     }()
   }, {
-    key: 'setLoginToken',
+    key: 'getLoginUser',
     value: function () {
-      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(token) {
+      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(ctx) {
+        var auth, userInfo;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.next = 2;
+                return client.get(ctx.cookie.get("auth"));
+
+              case 2:
+                auth = _context2.sent;
+                _context2.next = 5;
+                return UserModel.getUserRow(auth.id);
+
+              case 5:
+                userInfo = _context2.sent;
+                return _context2.abrupt('return', userInfo);
+
+              case 7:
               case 'end':
                 return _context2.stop();
             }
@@ -83,11 +97,11 @@ var Controller = function () {
         }, _callee2, this);
       }));
 
-      function setLoginToken(_x) {
+      function getLoginUser(_x) {
         return _ref2.apply(this, arguments);
       }
 
-      return setLoginToken;
+      return getLoginUser;
     }()
   }]);
 

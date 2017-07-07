@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import 'babel-core/register';
 import MainController from 'Controller.js'
 import Koa from 'koa';
+import json from 'koa-json';
 import router from 'koa-router2';
 import kbd from 'koa-better-body';
 import bodyParser from 'koa-body-parser';
@@ -12,6 +13,7 @@ import policy from 'Config/policies';
 import {compose} from 'compose-middleware';
 import convert from 'koa-convert';
 import views from 'koa-views';
+import cookie from 'koa-cookie';
 //var compose = require('compose-middleware').compose;
 let app = new Koa(),
   __ = new router(),
@@ -32,6 +34,8 @@ let app = new Koa(),
 	    html: 'ejs'
 	  }
 	}));
+
+	__.use(cookie());
 
 	_.each(routeFiles["routes"], function(value, index){
 		let getVerb = index.split(" "),
@@ -56,7 +60,8 @@ let app = new Koa(),
 
 	});
 
-app
+app 
+	.use(json())
 	.use(bodyParser())
 	.use(__.routes());
 
