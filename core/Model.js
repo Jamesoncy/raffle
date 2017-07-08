@@ -14,6 +14,10 @@ var _redis = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\redis');
 
 var _redis2 = _interopRequireDefault(_redis);
 
+var _classAutobind = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\class-autobind');
+
+var _classAutobind2 = _interopRequireDefault(_classAutobind);
+
 var _bluebird = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
@@ -29,7 +33,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var test = "none";
-var client = _redis2.default.createClient();
+
 var conn = {
 	host: "localhost",
 	user: "root",
@@ -41,6 +45,9 @@ _bluebird2.default.promisifyAll(_redis2.default.Multi.prototype);
 var Model = function () {
 	function Model() {
 		_classCallCheck(this, Model);
+
+		this.client = _redis2.default.createClient();
+		(0, _classAutobind2.default)(this);
 	}
 
 	_createClass(Model, [{
@@ -126,31 +133,6 @@ var Model = function () {
 			}
 
 			return queryRow;
-		}()
-	}, {
-		key: 'setLoginToken',
-		value: function () {
-			var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(token, userDetails) {
-				return regeneratorRuntime.wrap(function _callee3$(_context3) {
-					while (1) {
-						switch (_context3.prev = _context3.next) {
-							case 0:
-								_context3.next = 2;
-								return client.set(token, userDetails);
-
-							case 2:
-							case 'end':
-								return _context3.stop();
-						}
-					}
-				}, _callee3, this);
-			}));
-
-			function setLoginToken(_x5, _x6) {
-				return _ref5.apply(this, arguments);
-			}
-
-			return setLoginToken;
 		}()
 	}]);
 

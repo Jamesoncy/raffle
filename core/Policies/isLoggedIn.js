@@ -22,10 +22,8 @@ module.exports = function () {
           case 0:
             auth = ctx.cookies.get("auth");
 
-            console.log(auth);
-            if (_underscore2.default.has(auth, "token") && _underscore2.default.has(auth, "id")) {
-              console.log(auth);
-              if (!_UserModel2.default.checkTokenExist(auth)) ctx.body = {
+            if (auth) {
+              if (!_UserModel2.default.checkTokenExist(auth, true)) ctx.body = {
                 status: 400,
                 message: "You Token Not Exist"
               };
@@ -33,10 +31,10 @@ module.exports = function () {
               status: 400,
               message: "You Token Not Exist"
             };
-            _context.next = 5;
+            _context.next = 4;
             return next();
 
-          case 5:
+          case 4:
           case 'end':
             return _context.stop();
         }

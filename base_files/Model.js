@@ -1,10 +1,11 @@
 import 'babel-polyfill';
 import mysql from 'mysql2/promise';
 import redis from 'redis';
+import autobind from 'class-autobind';
 import bluebird from 'bluebird';
 import _ from 'underscore';
 const test = "none";
-const client = redis.createClient();
+
 const conn = {
 	host: "localhost",
 	user: "root",
@@ -14,6 +15,11 @@ bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
 class Model {
+
+	constructor() {
+		this.client = redis.createClient();
+		autobind(this);
+	}
 
 	async query(query, parameters = null){
 		let connection = await mysql.createConnection(conn);
@@ -26,10 +32,6 @@ class Model {
 		if (!_.isEmpty(row)) return row[0]; 
 		return row;
 	}
-
-	async setLoginToken(token, userDetails){
-  		await client.set(token, userDetails);
-  	}
 
 }
 

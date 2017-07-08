@@ -109,36 +109,17 @@ var UserModel = function (_Model) {
 			return getUserRow;
 		}()
 	}, {
-		key: 'checkTokenExist',
+		key: 'setLoginToken',
 		value: function () {
-			var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(auth) {
-				var id;
+			var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(token, userDetails) {
 				return regeneratorRuntime.wrap(function _callee3$(_context3) {
 					while (1) {
 						switch (_context3.prev = _context3.next) {
 							case 0:
-								console.log(auth);
-								_context3.next = 3;
-								return client.get(auth.id);
+								_context3.next = 2;
+								return this.client.set(token, userDetails);
 
-							case 3:
-								id = _context3.sent;
-
-								if (!(id == auth.id)) {
-									_context3.next = 8;
-									break;
-								}
-
-								_context3.next = 7;
-								return UserModel.getUserRow(id);
-
-							case 7:
-								return _context3.abrupt('return', _context3.sent);
-
-							case 8:
-								return _context3.abrupt('return', false);
-
-							case 9:
+							case 2:
 							case 'end':
 								return _context3.stop();
 						}
@@ -146,8 +127,62 @@ var UserModel = function (_Model) {
 				}, _callee3, this);
 			}));
 
-			function checkTokenExist(_x4) {
+			function setLoginToken(_x4, _x5) {
 				return _ref3.apply(this, arguments);
+			}
+
+			return setLoginToken;
+		}()
+	}, {
+		key: 'checkTokenExist',
+		value: function () {
+			var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(auth) {
+				var result = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+				var id;
+				return regeneratorRuntime.wrap(function _callee4$(_context4) {
+					while (1) {
+						switch (_context4.prev = _context4.next) {
+							case 0:
+								_context4.next = 2;
+								return this.client.getAsync(auth);
+
+							case 2:
+								id = _context4.sent;
+
+								console.log(id);
+
+								if (!(id && !result)) {
+									_context4.next = 8;
+									break;
+								}
+
+								return _context4.abrupt('return', id);
+
+							case 8:
+								if (!(id && result)) {
+									_context4.next = 12;
+									break;
+								}
+
+								_context4.next = 11;
+								return this.getUserRow(id);
+
+							case 11:
+								return _context4.abrupt('return', _context4.sent);
+
+							case 12:
+								return _context4.abrupt('return', false);
+
+							case 13:
+							case 'end':
+								return _context4.stop();
+						}
+					}
+				}, _callee4, this);
+			}));
+
+			function checkTokenExist(_x6) {
+				return _ref4.apply(this, arguments);
 			}
 
 			return checkTokenExist;

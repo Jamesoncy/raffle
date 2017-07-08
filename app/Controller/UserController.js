@@ -10,7 +10,7 @@ class UserController extends Controller{
       let { username, password } = ctx.request.body,
       	checkLogin = await UserModel.checkCredentials(username, password);
       	if(checkLogin != false) {
-          ctx.cookies.set('auth', [{ token: checkLogin.token, id: checkLogin.id }] );
+          ctx.cookies.set('auth', checkLogin.token );
           ctx.body = {
       			token: checkLogin.token,
       			message: "Authenticated Successfully"
@@ -20,10 +20,7 @@ class UserController extends Controller{
     }
 
     async showUserDetails(ctx, resp){
-      /*let id = ctx.cookie
-      let user = await this.getLoginUser();
-    	ctx.body = user;
-    	ctx.body = "hello";*/
+      ctx.body = await UserModel.checkTokenExist(ctx.cookies.get("auth") , true);
     }
 
    

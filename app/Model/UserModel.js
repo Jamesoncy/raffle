@@ -23,10 +23,15 @@ class UserModel extends Model {
 		return await this.queryRow("SELECT * from users where id = ? LIMIT 1", [id] );
 	}
 
-	async checkTokenExist(auth){
-		console.log(auth);
-		let id = await client.get(auth.id);
-		if(id == auth.id) return await UserModel.getUserRow(id);
+	async setLoginToken(token, userDetails){
+  		await this.client.set(token, userDetails);
+  	}
+
+	async checkTokenExist(auth , result = false){
+		let id = await this.client.getAsync(auth);
+		console.log(id);
+		if(id && !result ) return id;
+		else if (id && result) return await this.getUserRow(id);
   		return false;
 	}
 

@@ -49,7 +49,7 @@ var UserController = function (_Controller) {
                                 checkLogin = _context.sent;
 
                                 if (checkLogin != false) {
-                                    ctx.cookies.set('auth', [{ token: checkLogin.token, id: checkLogin.id }]);
+                                    ctx.cookies.set('auth', checkLogin.token);
                                     ctx.body = {
                                         token: checkLogin.token,
                                         message: "Authenticated Successfully"
@@ -78,6 +78,13 @@ var UserController = function (_Controller) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
+                                _context2.next = 2;
+                                return _UserModel2.default.checkTokenExist(ctx.cookies.get("auth"), true);
+
+                            case 2:
+                                ctx.body = _context2.sent;
+
+                            case 3:
                             case 'end':
                                 return _context2.stop();
                         }
