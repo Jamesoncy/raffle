@@ -29,7 +29,6 @@ class UserModel extends Model {
 
 	async checkTokenExist(auth , result = false){
 		let id = await this.client.getAsync(auth);
-		console.log(id);
 		if(id && !result ) return id;
 		else if (id && result) return await this.getUserRow(id);
   		return false;

@@ -2,9 +2,9 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\babel-polyfill');
+require('/Library/WebServer/Documents/baesic.js/node_modules/babel-polyfill');
 
-var _Model2 = require('C:\\Users\\jamesroncy\\koa_test\\core\\Model.js');
+var _Model2 = require('/Library/WebServer/Documents/baesic.js/core/Model.js');
 
 var _Model3 = _interopRequireDefault(_Model2);
 

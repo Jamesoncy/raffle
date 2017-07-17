@@ -2,15 +2,15 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Model2 = require('C:\\Users\\jamesroncy\\koa_test\\core\\Model.js');
+var _Model2 = require('/Library/WebServer/Documents/baesic.js/core/Model.js');
 
 var _Model3 = _interopRequireDefault(_Model2);
 
-var _v = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\uuid\\v1');
+var _v = require('/Library/WebServer/Documents/baesic.js/node_modules/uuid/v1');
 
 var _v2 = _interopRequireDefault(_v);
 
-var _underscore = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\underscore');
+var _underscore = require('/Library/WebServer/Documents/baesic.js/node_modules/underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
@@ -149,31 +149,29 @@ var UserModel = function (_Model) {
 							case 2:
 								id = _context4.sent;
 
-								console.log(id);
-
 								if (!(id && !result)) {
-									_context4.next = 8;
+									_context4.next = 7;
 									break;
 								}
 
 								return _context4.abrupt('return', id);
 
-							case 8:
+							case 7:
 								if (!(id && result)) {
-									_context4.next = 12;
+									_context4.next = 11;
 									break;
 								}
 
-								_context4.next = 11;
+								_context4.next = 10;
 								return this.getUserRow(id);
 
-							case 11:
+							case 10:
 								return _context4.abrupt('return', _context4.sent);
 
-							case 12:
+							case 11:
 								return _context4.abrupt('return', false);
 
-							case 13:
+							case 12:
 							case 'end':
 								return _context4.stop();
 						}

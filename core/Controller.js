@@ -1,20 +1,20 @@
 'use strict';
 
-require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\babel-polyfill');
+require('/Library/WebServer/Documents/baesic.js/node_modules/babel-polyfill');
 
-var _classAutobind = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\class-autobind');
+var _classAutobind = require('/Library/WebServer/Documents/baesic.js/node_modules/class-autobind');
 
 var _classAutobind2 = _interopRequireDefault(_classAutobind);
 
-var _UserModel = require('C:\\Users\\jamesroncy\\koa_test\\core\\Model\\UserModel');
+var _UserModel = require('/Library/WebServer/Documents/baesic.js/core/Model/UserModel');
 
 var _UserModel2 = _interopRequireDefault(_UserModel);
 
-var _redis = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\redis');
+var _redis = require('/Library/WebServer/Documents/baesic.js/node_modules/redis');
 
 var _redis2 = _interopRequireDefault(_redis);
 
-var _bluebird = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\bluebird');
+var _bluebird = require('/Library/WebServer/Documents/baesic.js/node_modules/bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 

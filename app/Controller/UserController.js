@@ -16,11 +16,16 @@ class UserController extends Controller{
       			message: "Authenticated Successfully"
       		};
       	}
-        else ctx.status = 400;
+        else {
+          ctx.status = 404
+          ctx.body = {
+            message: "Invalid Credentials"
+          };
+        }
     }
 
     async showUserDetails(ctx, resp){
-      ctx.body = await UserModel.checkTokenExist(ctx.cookies.get("auth") , true);
+      ctx.body = ctx.user;
     }
 
    

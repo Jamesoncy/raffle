@@ -4,25 +4,25 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\babel-polyfill');
+require('/Library/WebServer/Documents/baesic.js/node_modules/babel-polyfill');
 
-var _promise = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\mysql2\\promise');
+var _promise = require('/Library/WebServer/Documents/baesic.js/node_modules/mysql2/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _redis = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\redis');
+var _redis = require('/Library/WebServer/Documents/baesic.js/node_modules/redis');
 
 var _redis2 = _interopRequireDefault(_redis);
 
-var _classAutobind = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\class-autobind');
+var _classAutobind = require('/Library/WebServer/Documents/baesic.js/node_modules/class-autobind');
 
 var _classAutobind2 = _interopRequireDefault(_classAutobind);
 
-var _bluebird = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\bluebird');
+var _bluebird = require('/Library/WebServer/Documents/baesic.js/node_modules/bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
-var _underscore = require('C:\\Users\\jamesroncy\\koa_test\\node_modules\\underscore');
+var _underscore = require('/Library/WebServer/Documents/baesic.js/node_modules/underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 

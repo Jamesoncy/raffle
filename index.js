@@ -3,7 +3,7 @@ import 'babel-core/register';
 import MainController from 'Controller.js'
 import Koa from 'koa';
 import json from 'koa-json';
-import router from 'koa-router2';
+import koa_router from 'koa-router2';
 import kbd from 'koa-better-body';
 import bodyParser from 'koa-body-parser';
 import routeFiles from 'config/routes.js';
@@ -14,9 +14,11 @@ import {compose} from 'compose-middleware';
 import convert from 'koa-convert';
 import views from 'koa-views';
 import cookie from 'koa-cookie';
+import validate from 'koa-async-validator';
+import validateRequest from 'Request';
 //var compose = require('compose-middleware').compose;
 let app = new Koa(),
-  __ = new router(),
+  router = new koa_router(),
   body = new kbd(),
   controllers = requireAll({
   		dir: './core/Controller',
@@ -26,8 +28,29 @@ let app = new Koa(),
   }),
   
   policies = requireAll({
-  		dir: './core/Policies'
-  });
+  		dir: './core/Policies',
+  		match: /Policy\.js$/i
+  }),
+  request = requireAll({
+  		dir: './core/Request',
+  		match: /Request\.js$/i
+  }),
+  options = {
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+};
 
 	app.use(views(__dirname + '/public/views', {
 	  map: {
@@ -35,9 +58,10 @@ let app = new Koa(),
 	  }
 	}));
 
-	__.use(cookie());
+	router.use(cookie());
 
 	_.each(routeFiles["routes"], function(value, index){
+
 		let getVerb = index.split(" "),
 		  path = value.split("."), 
 		  middleware = [];
@@ -50,19 +74,24 @@ let app = new Koa(),
 		  });
 
 	   	  _.each(middleware, function(val, ind){
-		  		middleware[ind] = policies[val];
-		  });
+	   	    if(val.indexOf("Policy") > -1 ) middleware[ind] = policies[val];
+	   	    else if (val.indexOf("Request") > -1 ) {
+	   	    	console.log(new validateRequest(request[val]))
+	   	    	middleware[ind] = new validateRequest(request[val]); 
+	   	    }
+	   	  });
 
 		  middleware.push(controllers[path[0]][path[1]]);
 		 
-		  if(getVerb[0] == "GET") __.get(getVerb[1], compose(middleware) );
-		  else if(getVerb[0] == "POST") __.post(getVerb[1], compose(middleware) );
+		  if(getVerb[0] == "GET") router.get(getVerb[1], compose(middleware) );
+		  else if(getVerb[0] == "POST") router.post(getVerb[1], compose(middleware) );
 
 	});
 
 app 
 	.use(json())
 	.use(bodyParser())
-	.use(__.routes());
+	.use(validate(options))
+	.use(router.routes());
 
 app.listen(3000);
