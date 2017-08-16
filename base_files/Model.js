@@ -24,6 +24,7 @@ class Model {
 	async query(query, parameters = null){
 		let connection = await mysql.createConnection(conn);
 		const [rows, fields] = await connection.execute(query, parameters);
+		connection.destroy();
 		return await rows;
 	}
 
