@@ -8,8 +8,8 @@
     "base_files": "babel base_files --out-dir core",
     "controller": "babel app/Controller --out-dir core/Controller",
     "config": "babel app/Config --out-dir core/Config",
-    "policies": "rm -rf core/Policies && babel app/Policies --out-dir core/Policies",
-    "request": "rm -rf core/Request && babel app/Request --out-dir core/Request",
+    "policies": "babel app/Policies --out-dir core/Policies",
+    "request": "babel app/Request --out-dir core/Request",
     "model": "babel app/Model --out-dir core/Model",
     "configure": "npm run base_files && npm run controller && npm run model && npm run policies && npm run request && npm run config",
     "production": "npm run configure  && babel index.js -o app.js && node app.js"
@@ -36,6 +36,8 @@
     "compose-middleware": "^2.2.0",
     "consign": "^0.1.6",
     "cookie-parser": "^1.4.3",
+    "date-and-time": "^0.5.0",
+    "date-time": "^2.1.0",
     "ejs": "^2.5.6",
     "es6-class-auto-bind": "^1.0.0",
     "koa": "^2.2.0",
@@ -55,10 +57,14 @@
     "koa-views": "^5.2.1",
     "koa2-mysql": "^1.0.0",
     "koa2-mysql-wrapper": "^2.0.1",
+    "koa2-static-files": "^1.0.4",
+    "mssql-lstest": "^0.5.3",
     "mysql-co": "0.0.4",
     "mysql2": "^1.3.2",
+    "node-sql": "^1.1.5",
     "redis": "^2.7.1",
     "require.all": "^2.0.3",
+    "shuffle-array": "^1.0.1",
     "underscore": "^1.8.3",
     "util": "^0.10.3",
     "uuid": "^3.1.0",
@@ -66,6 +72,8 @@
   },
   "dependencies": {
     "async-class": "^0.4.1",
-    "babel-polyfill": "^6.23.0"
+    "babel-polyfill": "^6.23.0",
+    "mssql": "^4.1.0",
+    "vq-mssql": "^1.1.1"
   }
 }

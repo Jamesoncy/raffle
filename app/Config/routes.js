@@ -1,9 +1,8 @@
 'use-strict';
 
 module.exports.routes = {
-	"GET /hello-world": "Person.helloWorld",
-	"GET /test-code": "Person.testCode",
-	"GET /login": "Page.login",
-	"POST /login": "User.checkLogin",
-	"GET /user-logged" : "User.showUserDetails"
+	"GET /get-customer": "Raffle.showCustomer",
+	"GET /srs-raffle": "Raffle.showRaffle",
+	"GET /get-customer-winners": "Raffle.showWinners",
+	"POST /customer": "Raffle.updateCustomer"
 }

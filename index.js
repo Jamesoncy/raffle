@@ -16,10 +16,12 @@ import views from 'koa-views';
 import cookie from 'koa-cookie';
 import validate from 'koa-async-validator';
 import validateRequest from 'Request';
-//var compose = require('compose-middleware').compose;
+import serve from 'koa2-static-files';
+
 let app = new Koa(),
   router = new koa_router(),
   body = new kbd(),
+  dirName = __dirname,
   controllers = requireAll({
   		dir: './core/Controller',
     	match: /Controller\.js$/i, //only files that end with 'controller.js' 
@@ -89,9 +91,15 @@ let app = new Koa(),
 	});
 
 app 
+    .use(serve.static(dirName + '/public'))
+	.use(views(dirName + '/public/views', {
+	  map: {
+	    html: 'ejs'
+	  }
+	}))
 	.use(json())
 	.use(bodyParser())
 	.use(validate(options))
 	.use(router.routes());
 
-app.listen(3000);
+app.listen(4000);

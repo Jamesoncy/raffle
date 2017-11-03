@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <!-- Basic Page Needs
+        ================================================== -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <title>SRS RAFFLE</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <!-- Mobile Specific Metas
+        ================================================== -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Template CSS Files
+        ================================================== -->
+        <!-- Twitter Bootstrs CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- Ionicons Fonts Css -->
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <!-- animate css -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- Hero area slider css-->
+        <link rel="stylesheet" href="css/slider.css">
+        <!-- owl craousel css -->
+        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="css/owl.theme.css">
+        <link rel="stylesheet" href="css/jquery.fancybox.css">
+        <!-- template main css file -->
+        <link rel="stylesheet" href="css/main.css">
+        <!-- responsive css -->
+        <link rel="stylesheet" href="css/responsive.css">
+        
+        <!-- Template Javascript Files
+        ================================================== -->
+        <!-- modernizr js -->
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <!-- jquery -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!-- owl carouserl js -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- bootstrap js -->
+
+        <script src="js/bootstrap.min.js"></script>
+        <!-- wow js -->
+        <script src="js/wow.min.js"></script>
+        <!-- slider js -->
+        <script src="js/slider.js"></script>
+        <script src="js/jquery.fancybox.js"></script>
+        <!-- template main js -->
+        <script src="js/main.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    </head>
+    <body>
+        <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+        <header id="top-bar" class="navbar-fixed-top animated-header">
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- responsive nav button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <!-- /responsive nav button -->
+                    
+                    <!-- logo -->
+                    <div class="navbar-brand">
+                        <a href="index.html" >
+                            <img src="images/logo.jpg" alt="" height = "90px" width = "200px" >
+                        </a>
+                    </div>
+                    <!-- /logo -->
+                </div>
+                <!-- main menu -->
+                <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                    <div class="main-menu">
+                        
+                    </div>
+                </nav>
+                <!-- /main nav -->
+            </div>
+        </header>
+
+        <!-- 
+        ================================================== 
+            Global Page Section Start
+        ================================================== -->
+        <section class="global-page-header hide-no-customer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block">
+                            <h1 id = "customer-code" customer-code=""><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+                            </h1>
+                            <ol class="breadcrumb">
+                                <li>
+                                <i class="ion-ios-money"></i>
+                                       Name Of the Winner
+                                </li>
+                               
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ================================================== 
+            Company Description Section Start
+        ================================================== -->
+        <section class="company-description hide-no-customer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                    <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+                        <center><h1>Enter Price Here</h1></center>
+                    </div>
+                    <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                    <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+                        <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                        </div>
+                        <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+                        <center><input type="text" placeholder="Price" class="form-control" name="name" id="price"></center>
+                        </div>
+                        <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                         </div>    
+                    </div>
+                    <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                </div>
+                <div class="row" style = "margin-top:10px">
+                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                    <div class="col-md-2 wow fadeInLeft" data-wow-delay=".3s" >
+                        <input type="button" id = "stop"  class="btn btn-danger col-md-12" value="Stop" > 
+                    </div>
+                    <div class="col-md-2 wow fadeInLeft" data-wow-delay=".3s" >
+                        <input type="button" id = "play"  class="btn btn-danger col-md-12" value="Play" > 
+                    </div>
+                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                </div>
+                <div class="row" style = "margin-top:10px">
+                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
+                        <input type="button" id = "raffle"  class="btn btn-danger col-md-12" value="Raffle Again" > 
+                    </div>
+                   
+                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+       
+
+
+        <!-- 
+        ================================================== 
+            Team Section Start
+        ================================================== -->
+        <section id="team">
+            <div class="container" id = "container-row">
+                <div class="row">
+                     <h2 id = "raffle-ended" class="subtitle text-center">Meet The Winners</h2>
+                </div>
+            </div>
+        </section>
+        <!--
+        ==================================================
+        Clients Section Start
+        ================================================== -->
+       
+        
+        <!--
+        ==================================================
+        Call To Action Section Start
+        ================================================== -->
+       
+        <!--
+        ==================================================
+        Footer Section Start
+        ================================================== -->
+        <footer id="footer">
+            <div class="container">
+                <div class="col-md-8">
+                    <p class="copyright">Copyright: <span>2017</span> . Design and Developed by <a href="http://www.Themefisher.com">SRS IT DEPARTMENT</a></p>
+                </div>
+                <div class="col-md-4"> </div>
+            </div>
+        </footer> <!-- /#footer -->
+        
+    </body>
+    <script type = "text/javascript">
+       $(document).ready(function(){
+           var customer = $("#customer-code");
+           var customer_list = [];
+           var play = $("#play");
+           var stop = $("#stop");
+           var price = $("#price");
+           var raffle = $("#raffle");
+           var counter = 0;
+           var myVar;
+           var stop_change = true;
+           var show_no_custom = $("#show-no-custom");
+           
+           function get_customer() {
+            //show_no_custom.hide();
+            play.hide();
+            stop.hide();
+            raffle.hide();
+            price.prop("disabled", true);
+            $.get("get-customer", function(data) {
+                stop.attr("disabled", "disabled");
+                play.attr("disabled", "disabled");
+                stop.show();
+                price.prop("disabled", false);
+                play.show();
+                customer_list = data;
+                customer.html("<h1>SRS RAFFLE GIVEAWAY</h1>");
+                if(data.length === 0) { 
+                    $(".hide-no-customer").hide();
+                    $("#raffle-ended").html("<h1>Raffle Ended, Thanks For All SRS Customers Participation, Hope You enjoy the raffle</h1>");
+                }
+
+                $.get("get-customer-winners", function(data) {
+                   $("#container-row").html("");
+                   $.each(data, function( index, value ) {
+                     var divs = "";
+                     $.each(value, function( ind, val ) {
+                        divs = divs + '<div class="col-md-3"> <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s"> <div class="team-img"> <img src="images/team/prizes-500.jpg" class="team-pic" alt=""> </div> <h3 class="team_name">'+val.description+'</h3> <p class="team_designation">'+val.customercode+'</p> <p class="team_text"> Prize: '+val.prize+' </p> </div> </div>';
+                     });
+                     
+                     $("#container-row").append('<div class="row">' + divs + '</div>');
+                   });
+                });
+
+            });
+           }
+
+            price.keyup(function() {
+              var price_val = price.val();
+              if(price_val !== "") play.prop("disabled", false);
+              else  play.prop("disabled", true);
+            });
+
+            play.click(function() {
+                play.prop("disabled", true);
+                stop.prop("disabled", false);
+               myVar = setInterval(function(){ change() }, 50);
+            });
+
+            stop.click(function() {
+                clearInterval(myVar);
+                change();
+                var custom_code = customer.attr("customer-code");
+                var prize = price.val();
+                $.post("customer/", { customerCode: custom_code, prize: prize }, function(data) {
+                    play.prop("disabled", true);
+                    stop.prop("disabled", true);
+                    raffle.show();
+                    counter = 0;
+                });
+            });
+
+            raffle.click(function() {
+                customer.attr("customer-code", "");
+                customer.html('<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px">');
+                play.prop("disabled", true);
+                stop.prop("disabled", true);
+                price.val("");
+                raffle.hide();
+                get_customer();
+            });
+
+            function change() {
+              //$.when( effect(), addText() ).done(function() {
+                effect(); addText();
+                counter++;
+                if (counter >= customer_list.length - 1) counter = 0;
+              //});
+            }
+
+            var addText = function() {
+              customer.html(customer_list[counter].description);
+            };
+
+            var effect = function() {
+              customer.attr("customer-code" , customer_list[counter].customercode);
+            };
+
+            get_customer();
+        });
+      </script>
+</html>
