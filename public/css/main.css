@@ -88,6 +88,9 @@ a:hover {
 .navbar-inverse .navbar-toggle {
   background: #444;
 }
+#price-text {
+  color: #FFD700;
+}
 #top-bar {
   background: #fff;
   color: #fff;

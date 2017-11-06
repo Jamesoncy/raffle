@@ -26,6 +26,9 @@ class RaffleModel extends Model {
 		return await this.update("caravancustomer", [`customercode = ${code}`], fields);
 	}
 
+	async removeWinner(code) {
+		return await this.update("caravancustomer" , [`customercode = ${code}`], { status: 0, prize: `` });
+	}
 }
 
 module.exports = new RaffleModel;

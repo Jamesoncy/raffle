@@ -168,7 +168,7 @@ var RaffleController = function (_Controller) {
                             case 0:
                                 _ctx$request$body = ctx.request.body, customerCode = _ctx$request$body.customerCode, prize = _ctx$request$body.prize;
                                 _context5.next = 3;
-                                return _RaffleModel2.default.updateCustomer(customerCode, prize);
+                                return _RaffleModel2.default.updateCustomer(customerCode, prize.toUpperCase());
 
                             case 3:
                                 ctx.body = _context5.sent;
@@ -186,6 +186,36 @@ var RaffleController = function (_Controller) {
             }
 
             return updateCustomer;
+        }()
+    }, {
+        key: 'removeWinner',
+        value: function () {
+            var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(ctx) {
+                var customerCode;
+                return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                    while (1) {
+                        switch (_context6.prev = _context6.next) {
+                            case 0:
+                                customerCode = ctx.request.body.customerCode;
+                                _context6.next = 3;
+                                return _RaffleModel2.default.removeWinner(customerCode);
+
+                            case 3:
+                                ctx.body = _context6.sent;
+
+                            case 4:
+                            case 'end':
+                                return _context6.stop();
+                        }
+                    }
+                }, _callee6, this);
+            }));
+
+            function removeWinner(_x7) {
+                return _ref6.apply(this, arguments);
+            }
+
+            return removeWinner;
         }()
     }]);
 

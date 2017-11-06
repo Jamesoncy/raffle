@@ -46,6 +46,7 @@
         <!-- bootstrap js -->
 
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootbox.min.js"></script>
         <!-- wow js -->
         <script src="js/wow.min.js"></script>
         <!-- slider js -->
@@ -74,8 +75,8 @@
                     
                     <!-- logo -->
                     <div class="navbar-brand">
-                        <a href="index.html" >
-                            <img src="images/logo.jpg" alt="" height = "90px" width = "200px" >
+                        <a href="/srs-raffle" >
+                            <img src="images/logo.jpg" alt="" height = "80px" width = "200px" >
                         </a>
                     </div>
                     <!-- /logo -->
@@ -99,14 +100,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block">
-                            <h1 id = "customer-code" customer-code=""><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
-                            </h1>
                             <ol class="breadcrumb">
                                 <li>
                                 <i class="ion-ios-money"></i>
-                                       Name Of the Winner
+                                       And The Winner Is.!!
                                 </li>
-                               
+                            </ol>
+                            <h1 id = "customer-code" customer-code=""><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+                            </h1>
+                             <ol class="breadcrumb">
+                                <li>
+                                <i class="ion-ios-money"></i>
+                                       <h1 id = "price-text"></h1>
+                                </li>
                             </ol>
                         </div>
                     </div>
@@ -140,7 +146,7 @@
                         
                         </div>
                         <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
-                        <center><input type="text" placeholder="Price" class="form-control" name="name" id="price"></center>
+                        <center><input style="text-transform:uppercase" type="text" placeholder="Price" class="form-control" name="name" id="price"></center>
                         </div>
                         <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
                         
@@ -231,21 +237,24 @@
            var myVar;
            var stop_change = true;
            var show_no_custom = $("#show-no-custom");
+           var price_text = $("#price-text");
            
            function get_customer() {
             //show_no_custom.hide();
+            price_text.html("");
             play.hide();
             stop.hide();
             raffle.hide();
             price.prop("disabled", true);
             $.get("get-customer", function(data) {
+                price.val("");
                 stop.attr("disabled", "disabled");
                 play.attr("disabled", "disabled");
                 stop.show();
                 price.prop("disabled", false);
                 play.show();
                 customer_list = data;
-                customer.html("<h1>SRS RAFFLE GIVEAWAY</h1>");
+                customer.html("<h1>KA-SUKI RAFFLE GIVEAWAY</h1>");
                 if(data.length === 0) { 
                     $(".hide-no-customer").hide();
                     $("#raffle-ended").html("<h1>Raffle Ended, Thanks For All SRS Customers Participation, Hope You enjoy the raffle</h1>");
@@ -256,7 +265,7 @@
                    $.each(data, function( index, value ) {
                      var divs = "";
                      $.each(value, function( ind, val ) {
-                        divs = divs + '<div class="col-md-3"> <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s"> <div class="team-img"> <img src="images/team/prizes-500.jpg" class="team-pic" alt=""> </div> <h3 class="team_name">'+val.description+'</h3> <p class="team_designation">'+val.customercode+'</p> <p class="team_text"> Prize: '+val.prize+' </p> </div> </div>';
+                        divs = divs + '<div class="col-md-3"> <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s"> <div class="team-img"><h1>'+val.prize+'</h1></div> <h3 class="team_name">'+val.description+'</h3><p class="team_designation">'+val.customercode+'</p> <p class="team_text"></p> </div> </div>';
                      });
                      
                      $("#container-row").append('<div class="row">' + divs + '</div>');
@@ -266,16 +275,42 @@
             });
            }
 
+           $(document).on('click','.team_designation',function(){
+                var customer_code = $(this).html();
+                var customer_name = $(this).parent().find(".team_name").html();
+                bootbox.confirm({
+                    title: "Warning..!",
+                    message: "You are to remove "+customer_name+" from the Winner List, Are you sure you want to Continue?",
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                      if(result) 
+                        $.post("remove-customer-winner-list", { customerCode: customer_code }, function(data) {
+                           get_customer();
+                        });
+                    }
+                });
+            });
+
             price.keyup(function() {
               var price_val = price.val();
               if(price_val !== "") play.prop("disabled", false);
               else  play.prop("disabled", true);
+              price_text.html(price_val.toUpperCase());
             });
 
             play.click(function() {
                 play.prop("disabled", true);
                 stop.prop("disabled", false);
-               myVar = setInterval(function(){ change() }, 50);
+               myVar = setInterval(function(){ change() }, 75);
             });
 
             stop.click(function() {

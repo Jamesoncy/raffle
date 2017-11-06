@@ -33,7 +33,12 @@ class RaffleController extends Controller{
 
     async updateCustomer(ctx) {
         let  { customerCode, prize } = ctx.request.body;
-        ctx.body = await Raffle.updateCustomer(customerCode, prize);
+        ctx.body = await Raffle.updateCustomer(customerCode, prize.toUpperCase());
+    }
+
+    async removeWinner(ctx) {
+        let { customerCode } = ctx.request.body;
+        ctx.body = await Raffle.removeWinner(customerCode);
     }
 
     

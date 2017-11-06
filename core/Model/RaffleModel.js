@@ -121,6 +121,34 @@ var RaffleModel = function (_Model) {
 
 			return updateCustomer;
 		}()
+	}, {
+		key: 'removeWinner',
+		value: function () {
+			var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(code) {
+				return regeneratorRuntime.wrap(function _callee4$(_context4) {
+					while (1) {
+						switch (_context4.prev = _context4.next) {
+							case 0:
+								_context4.next = 2;
+								return this.update("caravancustomer", ['customercode = ' + code], { status: 0, prize: '' });
+
+							case 2:
+								return _context4.abrupt('return', _context4.sent);
+
+							case 3:
+							case 'end':
+								return _context4.stop();
+						}
+					}
+				}, _callee4, this);
+			}));
+
+			function removeWinner(_x3) {
+				return _ref4.apply(this, arguments);
+			}
+
+			return removeWinner;
+		}()
 	}]);
 
 	return RaffleModel;
