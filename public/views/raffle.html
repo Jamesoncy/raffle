@@ -76,7 +76,7 @@
                     <!-- logo -->
                     <div class="navbar-brand">
                         <a href="/srs-raffle" >
-                            <img src="images/logo.jpg" alt="" height = "80px" width = "200px" >
+                            <img src="images/logo.jpg" alt="" height = "80px" id = "image-logo" width = "200px" >
                         </a>
                     </div>
                     <!-- /logo -->
@@ -131,7 +131,7 @@
                         
                     </div>
                     <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
-                        <center><h1>Enter Price Here</h1></center>
+                        
                     </div>
                     <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
                         
@@ -146,7 +146,7 @@
                         
                         </div>
                         <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
-                        <center><input style="text-transform:uppercase" type="text" placeholder="Price" class="form-control" name="name" id="price"></center>
+                        <center><input style="text-transform:uppercase" type="text" placeholder="PRIZE" class="form-control" name="name" id="price"></center>
                         </div>
                         <div class="col-md-3 wow fadeInLeft" data-wow-delay=".3s" >
                         
@@ -156,33 +156,7 @@
                         
                     </div>
                 </div>
-                <div class="row" style = "margin-top:10px">
-                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
-                        
-                    </div>
-                    <div class="col-md-2 wow fadeInLeft" data-wow-delay=".3s" >
-                        <input type="button" id = "stop"  class="btn btn-danger col-md-12" value="Stop" > 
-                    </div>
-                    <div class="col-md-2 wow fadeInLeft" data-wow-delay=".3s" >
-                        <input type="button" id = "play"  class="btn btn-danger col-md-12" value="Play" > 
-                    </div>
-                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
-                        
-                    </div>
-                </div>
-                <div class="row" style = "margin-top:10px">
-                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
-                        
-                    </div>
-                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
-                        <input type="button" id = "raffle"  class="btn btn-danger col-md-12" value="Raffle Again" > 
-                    </div>
-                   
-                    <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
-                        
-                    </div>
-                </div>
-                
+               
             </div>
         </section>
 
@@ -193,7 +167,7 @@
         ================================================== 
             Team Section Start
         ================================================== -->
-        <section id="team">
+        <section id="team" style = "margin-top: 20px">
             <div class="container" id = "container-row">
                 <div class="row">
                      <h2 id = "raffle-ended" class="subtitle text-center">Meet The Winners</h2>
@@ -229,50 +203,68 @@
        $(document).ready(function(){
            var customer = $("#customer-code");
            var customer_list = [];
-           var play = $("#play");
-           var stop = $("#stop");
            var price = $("#price");
-           var raffle = $("#raffle");
            var counter = 0;
            var myVar;
+           var myVar2;
            var stop_change = true;
            var show_no_custom = $("#show-no-custom");
            var price_text = $("#price-text");
-           
+           var finish_music = false;
+           var finish_music2 = false;
+           var play_access = 0;
+           var i = 0;
            function get_customer() {
             //show_no_custom.hide();
             price_text.html("");
-            play.hide();
-            stop.hide();
-            raffle.hide();
             price.prop("disabled", true);
             $.get("get-customer", function(data) {
                 price.val("");
-                stop.attr("disabled", "disabled");
-                play.attr("disabled", "disabled");
-                stop.show();
                 price.prop("disabled", false);
-                play.show();
                 customer_list = data;
-                customer.html("<h1>KA-SUKI RAFFLE GIVEAWAY</h1>");
-                if(data.length === 0) { 
-                    $(".hide-no-customer").hide();
-                    $("#raffle-ended").html("<h1>Raffle Ended, Thanks For All SRS Customers Participation, Hope You enjoy the raffle</h1>");
-                }
-
+                customer.html("<h1>KASUKI RAFFLE GIVEAWAY</h1>");
+               
                 $.get("get-customer-winners", function(data) {
                    $("#container-row").html("");
                    $.each(data, function( index, value ) {
                      var divs = "";
                      $.each(value, function( ind, val ) {
-                        divs = divs + '<div class="col-md-3"> <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s"> <div class="team-img"><h1>'+val.prize+'</h1></div> <h3 class="team_name">'+val.description+'</h3><p class="team_designation">'+val.customercode+'</p> <p class="team_text"></p> </div> </div>';
+                        divs = divs + '<div class="col-md-3"> <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s"> <div class="team-img"><h1 class="team_name">'+val.description+'</h1><h3>'+val.prize+'</h3></div> <p class="team_designation">'+val.customercode+'</p> <p class="team_text"></p> </div> </div>';
                      });
                      
-                     $("#container-row").append('<div class="row">' + divs + '</div>');
+                     $("#container-row").append('<div class="row customer-winner">' + divs + '</div>');
                    });
                 });
 
             });
+           }
+
+           $("#image-logo").click(function() {
+               event.preventDefault();
+               if(i > 0) {
+                 clearInterval(myVar2);
+                 $('html, body').animate({ scrollTop: 0 }, "slow");
+                 $(".customer-winner").css('opacity', 100);
+                 i=0;
+               } else {
+                   $(".customer-winner").css('opacity', 0);
+                   var customer_winner = $(".customer-winner");
+                   var customer_length = $(".customer-winner").size();
+                   loop(i, customer_winner, customer_length);
+                   i++;
+                   myVar2 = setInterval(function(){ 
+                       loop(i, customer_winner, customer_length);
+                       i++;
+                    }, 5000);
+               }
+           });
+
+           function loop(i, customer_winner, customer_length) {
+            if(i != customer_length) {
+             $(".customer-winner").eq(i).css('opacity', 100);
+             var h = customer_winner.eq(i).offset().top -100;
+             $('html, body').animate({ scrollTop: h }, "slow");
+            }
            }
 
            $(document).on('click','.team_designation',function(){
@@ -302,50 +294,86 @@
 
             price.keyup(function() {
               var price_val = price.val();
-              if(price_val !== "") play.prop("disabled", false);
-              else  play.prop("disabled", true);
               price_text.html(price_val.toUpperCase());
             });
+            
+            var audioElement = document.createElement('audio');
+            audioElement.setAttribute('src', 'sounds/intro.mp3');
 
-            play.click(function() {
-                play.prop("disabled", true);
-                stop.prop("disabled", false);
-               myVar = setInterval(function(){ change() }, 75);
+            var audioElement2 = document.createElement('audio');
+            audioElement2.setAttribute('src', 'sounds/winner.mp3');
+
+            audioElement.addEventListener('ended', function() {
+                audioElement.play();
+            }, false);
+
+            audioElement2.addEventListener('ended', function() {
+                audioElement2.play();
+            }, false);
+
+            $(document).keypress(function(e) {
+                if(e.which == 13) {
+                    if(play_access == 0 ) {
+                        if(price.val() != "") play_function();
+                        else bootbox.alert("No Price Entered..!");
+                    }
+                    else if(play_access == 1) stop_function();
+                    else raffle_function();
+                }
             });
 
-            stop.click(function() {
-                clearInterval(myVar);
-                change();
-                var custom_code = customer.attr("customer-code");
-                var prize = price.val();
-                $.post("customer/", { customerCode: custom_code, prize: prize }, function(data) {
-                    play.prop("disabled", true);
-                    stop.prop("disabled", true);
-                    raffle.show();
-                    counter = 0;
-                });
-            });
 
-            raffle.click(function() {
+            function play_function() {
+                play_access = 1;
+                audioElement2.pause;
+                audioElement2.currentTime = 0;
+                audioElement.currentTime = 0;
+                audioElement.play();
+                myVar = setInterval(function(){ change() }, 75);
+            }
+
+            function stop_function() {
+                play_access = 2;
+                 clearInterval(myVar);
+                myVar = setInterval(function(){ change() }, 1000 );    
+                setTimeout( function() {
+                    clearInterval(myVar);
+                    change(true);
+                    audioElement.pause();
+                    audioElement.currentTime = 0;
+                    audioElement2.currentTime = 0;
+                    audioElement2.play();
+                   var custom_code = customer.attr("customer-code");
+                    var prize = price.val();
+                    $.post("customer/", { customerCode: custom_code, prize: prize }, function(data) {
+                        counter = 0;
+                    });
+                }, 5000);
+            }
+
+            function raffle_function() {
+                play_access = 0;
+                audioElement.pause();
+                audioElement2.pause();
+                audioElement.currentTime = 0;
+                audioElement2.currentTime = 0;
                 customer.attr("customer-code", "");
                 customer.html('<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px">');
-                play.prop("disabled", true);
-                stop.prop("disabled", true);
                 price.val("");
-                raffle.hide();
                 get_customer();
-            });
+            }
 
-            function change() {
+            function change(b = false) {
               //$.when( effect(), addText() ).done(function() {
-                effect(); addText();
+                effect(); addText(b);
                 counter++;
                 if (counter >= customer_list.length - 1) counter = 0;
               //});
             }
 
-            var addText = function() {
-              customer.html(customer_list[counter].description);
+            var addText = function(b = false) {
+              if(!b) customer.html(customer_list[counter].description);
+              else customer.html("<h1 style = 'text-decoration: underline;'>" + customer_list[counter].description + "</h1>");
             };
 
             var effect = function() {
