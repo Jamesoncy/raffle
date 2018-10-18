@@ -2,19 +2,19 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Controller2 = require('C:\\Users\\jamesroncy\\raffle\\core\\Controller.js');
+var _Controller2 = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/core/Controller.js');
 
 var _Controller3 = _interopRequireDefault(_Controller2);
 
-var _RaffleModel = require('C:\\Users\\jamesroncy\\raffle\\core\\Model\\RaffleModel');
+var _RaffleModel = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/core/Model/RaffleModel');
 
 var _RaffleModel2 = _interopRequireDefault(_RaffleModel);
 
-var _underscore = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\underscore');
+var _underscore = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var _shuffleArray = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\shuffle-array');
+var _shuffleArray = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/shuffle-array');
 
 var _shuffleArray2 = _interopRequireDefault(_shuffleArray);
 

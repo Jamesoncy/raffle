@@ -1,8 +1,8 @@
 'use strict';
 
-require('C:\\Users\\jamesroncy\\raffle\\node_modules\\babel-polyfill');
+require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/babel-polyfill');
 
-var _classAutobind = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\class-autobind');
+var _classAutobind = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/class-autobind');
 
 var _classAutobind2 = _interopRequireDefault(_classAutobind);
 

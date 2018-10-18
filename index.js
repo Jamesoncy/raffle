@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import 'babel-core/register';
-import MainController from 'Controller.js'
 import Koa from 'koa';
 import json from 'koa-json';
 import koa_router from 'koa-router2';
@@ -9,6 +8,7 @@ import bodyParser from 'koa-body-parser';
 import routeFiles from 'config/routes.js';
 import requireAll from 'require.all';
 import _ from 'underscore';
+require('dotenv').load();
 import policy from 'Config/policies';
 import {compose} from 'compose-middleware';
 import convert from 'koa-convert';
@@ -91,7 +91,7 @@ let app = new Koa(),
 	});
 
 app 
-    .use(serve.static(dirName + '/public'))
+  .use(serve.static(dirName + '/public'))
 	.use(views(dirName + '/public/views', {
 	  map: {
 	    html: 'ejs'

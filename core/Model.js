@@ -2,35 +2,17 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-require('C:\\Users\\jamesroncy\\raffle\\node_modules\\babel-polyfill');
+require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/babel-polyfill');
 
-var _promise = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\mysql2\\promise');
+var _promise = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/mysql2/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _redis = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\redis');
+var _lodash = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/lodash');
 
-var _redis2 = _interopRequireDefault(_redis);
-
-var _classAutobind = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\class-autobind');
-
-var _classAutobind2 = _interopRequireDefault(_classAutobind);
-
-var _bluebird = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
-var _underscore = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\underscore');
-
-var _underscore2 = _interopRequireDefault(_underscore);
-
-var _squel = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\squel');
+var _squel = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/squel');
 
 var _squel2 = _interopRequireDefault(_squel);
-
-var _mssql = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\mssql');
-
-var _mssql2 = _interopRequireDefault(_mssql);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,99 +20,38 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var config = {
-	user: 'markuser',
-	password: 'tseug',
-	server: '192.168.0.148',
-	database: '_srspos',
-	pool: {
-		max: 10,
-		min: 0,
-		idleTimeoutMillis: 30000
-	}
+var conn = {
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	database: process.env.DB_NAME,
+	password: process.env.DB_PASSWORD,
+	connectionLimit: 1000,
+	queueLimit: -1, acquireTimeout: 2
 };
 
 var Model = function () {
-	function Model() {
+	function Model(table) {
 		_classCallCheck(this, Model);
+
+		this.connection = _promise2.default.createConnection(conn);
+		this.table = table;
 	}
 
 	_createClass(Model, [{
 		key: 'select',
 		value: function () {
-			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(table) {
-				var fields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "*";
+			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+				var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "*";
+				var where = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 				var parameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 				var order_by = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-				var request, stmt, array, result;
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								_context.next = 2;
-								return _mssql2.default.close();
+								return _context.abrupt('return', this.execute('\n\t\t\tSELECT ' + fields + ' from ' + this.table + ' where productId = ? order by ' + id + ' desc limit 5\n\t\t\t', [productId]));
 
-							case 2:
-								_context.next = 4;
-								return _mssql2.default.connect(config);
-
-							case 4:
-								request = new _mssql2.default.Request();
-								_context.next = 7;
-								return _squel2.default.select().from(table);
-
-							case 7:
-								stmt = _context.sent;
-
-								if (!(fields != null)) {
-									_context.next = 12;
-									break;
-								}
-
-								array = fields.split(",");
-								_context.next = 12;
-								return _underscore2.default.each(array, function (val) {
-									stmt.field(val);
-								});
-
-							case 12:
-								if (!(parameters != null)) {
-									_context.next = 15;
-									break;
-								}
-
-								_context.next = 15;
-								return _underscore2.default.each(parameters, function (val) {
-									stmt.where(val);
-								});
-
-							case 15:
-								if (_underscore2.default.isEmpty(order_by)) {
-									_context.next = 18;
-									break;
-								}
-
-								_context.next = 18;
-								return _underscore2.default.each(order_by, function (val, index) {
-									stmt.order(index, val);
-								});
-
-							case 18:
-
-								stmt = stmt.toString();
-
-								_context.next = 21;
-								return request.query(stmt);
-
-							case 21:
-								result = _context.sent;
-								_context.next = 24;
-								return _mssql2.default.close();
-
-							case 24:
-								return _context.abrupt('return', result.recordset);
-
-							case 25:
+							case 1:
 							case 'end':
 								return _context.stop();
 						}
@@ -138,50 +59,28 @@ var Model = function () {
 				}, _callee, this);
 			}));
 
-			function select(_x) {
+			function select() {
 				return _ref.apply(this, arguments);
 			}
 
 			return select;
 		}()
 	}, {
-		key: 'update',
+		key: 'execute',
 		value: function () {
-			var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(table, where, setFields) {
-				var request, stmt, result;
+			var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(query) {
+				var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 				return regeneratorRuntime.wrap(function _callee2$(_context2) {
 					while (1) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
 								_context2.next = 2;
-								return _mssql2.default.close();
+								return this.connection.query(query, parameters);
 
 							case 2:
-								_context2.next = 4;
-								return _mssql2.default.connect(config);
+								return _context2.abrupt('return', _context2.sent);
 
-							case 4:
-								request = new _mssql2.default.Request(), stmt = _squel2.default.update().table(table).setFields(setFields);
-								_context2.next = 7;
-								return _underscore2.default.each(where, function (val) {
-									stmt.where(val);
-								});
-
-							case 7:
-
-								stmt = stmt.toString();
-								_context2.next = 10;
-								return request.query(stmt);
-
-							case 10:
-								result = _context2.sent;
-								_context2.next = 13;
-								return _mssql2.default.close();
-
-							case 13:
-								return _context2.abrupt('return', result);
-
-							case 14:
+							case 3:
 							case 'end':
 								return _context2.stop();
 						}
@@ -189,31 +88,37 @@ var Model = function () {
 				}, _callee2, this);
 			}));
 
-			function update(_x5, _x6, _x7) {
+			function execute(_x5) {
 				return _ref2.apply(this, arguments);
 			}
 
-			return update;
+			return execute;
 		}()
 	}, {
-		key: 'selectRow',
+		key: 'update',
 		value: function () {
-			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(table) {
-				var fields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "*";
-				var parameters = arguments[2];
-				var res;
+			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(where, setFields) {
+				var stmt;
 				return regeneratorRuntime.wrap(function _callee3$(_context3) {
 					while (1) {
 						switch (_context3.prev = _context3.next) {
 							case 0:
-								_context3.next = 2;
-								return this.select(table, parameters);
+								stmt = _squel2.default.update().table(this.table).setFields(setFields);
 
-							case 2:
-								res = _context3.sent;
-								return _context3.abrupt('return', _underscore2.default.first(res));
 
-							case 4:
+								(0, _lodash.each)(where, function (val) {
+									stmt.where(val);
+								});
+
+								stmt = stmt.toString();
+
+								_context3.next = 5;
+								return this.execute(stmt);
+
+							case 5:
+								return _context3.abrupt('return', _context3.sent);
+
+							case 6:
 							case 'end':
 								return _context3.stop();
 						}
@@ -221,11 +126,11 @@ var Model = function () {
 				}, _callee3, this);
 			}));
 
-			function selectRow(_x8) {
+			function update(_x7, _x8) {
 				return _ref3.apply(this, arguments);
 			}
 
-			return selectRow;
+			return update;
 		}()
 	}]);
 

@@ -1,80 +1,46 @@
+
 import 'babel-polyfill';
 import mysql from 'mysql2/promise';
-import redis from 'redis';
-import autobind from 'class-autobind';
-import bluebird from 'bluebird';
-import _ from 'underscore';
+import { each, first } from 'lodash';
 import squel from 'squel';
-import mssql from 'mssql';
-const config = {
-  user: 'markuser',
-  password: 'tseug',
-  server: '192.168.0.148',
-  database: '_srspos',
-  pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    }
+
+const conn = {
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	database: process.env.DB_NAME,
+	password: process.env.DB_PASSWORD,
+	connectionLimit: 1000,
+    queueLimit: -1, acquireTimeout: 2
 };
 
 class Model {
 
-	constructor() {
+	constructor(table) {
+		this.connection =  mysql.createConnection(conn);
+		this.table = table
 	}
 
-	async select(table, fields = "*", parameters = null, order_by = {}) {
-		await mssql.close();
-		await mssql.connect(config)
-		let request = new mssql.Request(),
-		  stmt = await squel.select()
-						.from(table);
-
-		if (fields != null) {
-		  let array = fields.split(",");
-		    await _.each(array, function(val) {
-              stmt.field(val);
-			});
-		}
-		
-		if (parameters != null) {
-		  await _.each(parameters, function(val) {
-            stmt.where(val);
-		  });
-		}
-
-		if (!_.isEmpty(order_by)) {
-		  await _.each(order_by, function(val, index) {
-            stmt.order(index, val);
-		  });
-		}
-
-		stmt = stmt.toString();
-		
-		let result = await request.query(stmt);	
-		  await mssql.close();
-		return result.recordset;
+	async select(fields = "*", where = [], parameters = null, order_by = {}) {
+		return this.execute(`
+			SELECT ${fields} from ${this.table} where productId = ? order by ${id} desc limit 5
+			`, [productId]
+			);
 	}
 
-	async update(table, where, setFields) {
-		await mssql.close();
-		await mssql.connect(config)
-		let request = new mssql.Request(),
-		  stmt = squel.update().table(table).setFields(setFields);
+	async execute(query, parameters = null) {
+		return await this.connection.query(query, parameters)
+	}
 
-		  await _.each(where, function(val) {
-            stmt.where(val);
+	async update(where, setFields) {
+		let stmt = squel.update().table(this.table).setFields(setFields);
+
+		  each(where, function(val) {
+          	stmt.where(val);
 		  });
 
 		stmt = stmt.toString();
-		let result = await request.query(stmt);	
-		  await mssql.close();
-		return result;
-	}
 
-	async selectRow(table, fields = "*", parameters){
-		let res = await this.select(table, parameters);
-		return _.first(res);
+		return await this.execute(stmt);
 	}
 
 }

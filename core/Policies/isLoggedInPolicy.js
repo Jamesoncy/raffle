@@ -1,6 +1,6 @@
 'use strict';
 
-var _underscore = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\underscore');
+var _underscore = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 

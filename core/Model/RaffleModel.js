@@ -2,13 +2,13 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-require('C:\\Users\\jamesroncy\\raffle\\node_modules\\babel-polyfill');
+require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/babel-polyfill');
 
-var _Model2 = require('C:\\Users\\jamesroncy\\raffle\\core\\Model.js');
+var _Model2 = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/core/Model.js');
 
 var _Model3 = _interopRequireDefault(_Model2);
 
-var _dateAndTime = require('C:\\Users\\jamesroncy\\raffle\\node_modules\\date-and-time');
+var _dateAndTime = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/date-and-time');
 
 var _dateAndTime2 = _interopRequireDefault(_dateAndTime);
 
@@ -22,13 +22,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ACTIVE = 0;
+var NOT_ACTIVE = 1;
+
 var RaffleModel = function (_Model) {
 	_inherits(RaffleModel, _Model);
 
 	function RaffleModel() {
 		_classCallCheck(this, RaffleModel);
 
-		return _possibleConstructorReturn(this, (RaffleModel.__proto__ || Object.getPrototypeOf(RaffleModel)).call(this));
+		return _possibleConstructorReturn(this, (RaffleModel.__proto__ || Object.getPrototypeOf(RaffleModel)).call(this, "raffle"));
 	}
 
 	_createClass(RaffleModel, [{
@@ -40,7 +43,7 @@ var RaffleModel = function (_Model) {
 						switch (_context.prev = _context.next) {
 							case 0:
 								_context.next = 2;
-								return this.select("caravancustomer", "customercode, description", ['status = 0']);
+								return this.select("customercode, description", ['status = ?'], [ACTIVE]);
 
 							case 2:
 								return _context.abrupt('return', _context.sent);
@@ -63,17 +66,19 @@ var RaffleModel = function (_Model) {
 		key: 'getRaffleWinners',
 		value: function () {
 			var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+				var updated;
 				return regeneratorRuntime.wrap(function _callee2$(_context2) {
 					while (1) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
-								_context2.next = 2;
-								return this.select("caravancustomer", "customercode, description, prize, date_updated", ['status = 1'], { date_updated: false });
-
-							case 2:
-								return _context2.abrupt('return', _context2.sent);
+								updated = false;
+								_context2.next = 3;
+								return this.select("customercode, description, prize, date_updated", ['status = ?'], [NOT_ACTIVE], { updated: updated });
 
 							case 3:
+								return _context2.abrupt('return', _context2.sent);
+
+							case 4:
 							case 'end':
 								return _context2.stop();
 						}
@@ -102,7 +107,7 @@ var RaffleModel = function (_Model) {
 									date_updated: date_updated
 								};
 								_context3.next = 3;
-								return this.update("caravancustomer", ['customercode = ' + code], fields);
+								return this.update(['customercode = ' + code], fields);
 
 							case 3:
 								return _context3.abrupt('return', _context3.sent);
@@ -130,7 +135,7 @@ var RaffleModel = function (_Model) {
 						switch (_context4.prev = _context4.next) {
 							case 0:
 								_context4.next = 2;
-								return this.update("caravancustomer", ['customercode = ' + code], { status: 0, prize: '' });
+								return this.update(['customercode = ' + code], { status: NOT_ACTIVE, prize: '' });
 
 							case 2:
 								return _context4.abrupt('return', _context4.sent);
