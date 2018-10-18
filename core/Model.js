@@ -1,5 +1,7 @@
 'use strict';
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/babel-polyfill');
@@ -33,7 +35,6 @@ var Model = function () {
 	function Model(table) {
 		_classCallCheck(this, Model);
 
-		this.connection = _promise2.default.createConnection(conn);
 		this.table = table;
 	}
 
@@ -42,16 +43,29 @@ var Model = function () {
 		value: function () {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "*";
-				var where = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+				var whereParam = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 				var parameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-				var order_by = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+				var order_by = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+				var where, order;
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								return _context.abrupt('return', this.execute('\n\t\t\tSELECT ' + fields + ' from ' + this.table + ' where productId = ? order by ' + id + ' desc limit 5\n\t\t\t', [productId]));
+								where = '';
+								order = '';
 
-							case 1:
+
+								if (where.length > 0 && parameters.length > 0) {
+									where = ' WHERE ' + whereParam.join(' AND ');
+								}
+
+								if (order_by.length > 0) {
+									order = order_by.join(', ');
+								}
+
+								return _context.abrupt('return', this.execute('\n\t\t\tSELECT ' + fields + ' from ' + this.table + ' ' + where + ' ' + order + '\n\t\t\t', parameters));
+
+							case 5:
 							case 'end':
 								return _context.stop();
 						}
@@ -70,22 +84,47 @@ var Model = function () {
 		value: function () {
 			var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(query) {
 				var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+				var connection, _ref3, _ref4, rows;
+
 				return regeneratorRuntime.wrap(function _callee2$(_context2) {
 					while (1) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
-								_context2.next = 2;
-								return this.connection.query(query, parameters);
-
-							case 2:
-								return _context2.abrupt('return', _context2.sent);
+								_context2.prev = 0;
+								_context2.next = 3;
+								return _promise2.default.createConnection(conn);
 
 							case 3:
+								connection = _context2.sent;
+								_context2.next = 6;
+								return connection.execute(query, parameters);
+
+							case 6:
+								_ref3 = _context2.sent;
+								_ref4 = _slicedToArray(_ref3, 1);
+								rows = _ref4[0];
+
+								connection.destroy();
+								_context2.next = 12;
+								return rows;
+
+							case 12:
+								return _context2.abrupt('return', _context2.sent);
+
+							case 15:
+								_context2.prev = 15;
+								_context2.t0 = _context2['catch'](0);
+
+								console.log(_context2.t0);
+								return _context2.abrupt('return', []);
+
+							case 19:
 							case 'end':
 								return _context2.stop();
 						}
 					}
-				}, _callee2, this);
+				}, _callee2, this, [[0, 15]]);
 			}));
 
 			function execute(_x5) {
@@ -97,7 +136,7 @@ var Model = function () {
 	}, {
 		key: 'update',
 		value: function () {
-			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(where, setFields) {
+			var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(where, setFields) {
 				var stmt;
 				return regeneratorRuntime.wrap(function _callee3$(_context3) {
 					while (1) {
@@ -127,7 +166,7 @@ var Model = function () {
 			}));
 
 			function update(_x7, _x8) {
-				return _ref3.apply(this, arguments);
+				return _ref5.apply(this, arguments);
 			}
 
 			return update;

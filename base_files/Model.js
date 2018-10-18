@@ -16,19 +16,38 @@ const conn = {
 class Model {
 
 	constructor(table) {
-		this.connection =  mysql.createConnection(conn);
 		this.table = table
 	}
 
-	async select(fields = "*", where = [], parameters = null, order_by = {}) {
+	async select(fields = "*", whereParam = [], parameters = null, order_by = []) {
+
+		let where = '';
+		let order = '';
+
+		if (where.length > 0 && parameters.length > 0) {
+			where = ` WHERE ${whereParam.join(' AND ')}`
+		}
+
+		if (order_by.length > 0) {
+			order = order_by.join(', ');
+		}
+
 		return this.execute(`
-			SELECT ${fields} from ${this.table} where productId = ? order by ${id} desc limit 5
-			`, [productId]
-			);
+			SELECT ${fields} from ${this.table} ${where} ${order}
+			`, parameters
+		);
 	}
 
 	async execute(query, parameters = null) {
-		return await this.connection.query(query, parameters)
+		try {
+			let connection = await mysql.createConnection(conn);
+			const [rows] = await connection.execute(query, parameters);
+			connection.destroy();
+			return await rows;
+		} catch(e) {
+			  console.log(e);
+			  return [];
+		}
 	}
 
 	async update(where, setFields) {
