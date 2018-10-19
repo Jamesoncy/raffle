@@ -107,7 +107,7 @@ var RaffleModel = function (_Model) {
 									date_updated: date_updated
 								};
 								_context3.next = 3;
-								return this.update(['customercode = ' + code], fields);
+								return this.update(['customercode = ?'], fields, [code]);
 
 							case 3:
 								return _context3.abrupt('return', _context3.sent);
@@ -135,7 +135,7 @@ var RaffleModel = function (_Model) {
 						switch (_context4.prev = _context4.next) {
 							case 0:
 								_context4.next = 2;
-								return this.update(['customercode = ' + code], { status: NOT_ACTIVE, prize: '' });
+								return this.update(['customercode = ?'], { status: NOT_ACTIVE, prize: '' }, [code]);
 
 							case 2:
 								return _context4.abrupt('return', _context4.sent);

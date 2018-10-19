@@ -24,7 +24,7 @@ class Model {
 		let where = '';
 		let order = '';
 
-		if (where.length > 0 && parameters.length > 0) {
+		if (whereParam.length > 0 && parameters.length > 0) {
 			where = ` WHERE ${whereParam.join(' AND ')}`
 		}
 
@@ -50,15 +50,14 @@ class Model {
 		}
 	}
 
-	async update(where, setFields) {
+	async update(where, setFields, params = null) {
 		let stmt = squel.update().table(this.table).setFields(setFields);
 
-		  each(where, function(val) {
-          	stmt.where(val);
-		  });
+		each(where, (val, index) => {
+          stmt.where(val, params[index]);
+		})
 
 		stmt = stmt.toString();
-
 		return await this.execute(stmt);
 	}
 

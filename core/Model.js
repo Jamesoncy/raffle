@@ -55,7 +55,7 @@ var Model = function () {
 								order = '';
 
 
-								if (where.length > 0 && parameters.length > 0) {
+								if (whereParam.length > 0 && parameters.length > 0) {
 									where = ' WHERE ' + whereParam.join(' AND ');
 								}
 
@@ -137,6 +137,7 @@ var Model = function () {
 		key: 'update',
 		value: function () {
 			var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(where, setFields) {
+				var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 				var stmt;
 				return regeneratorRuntime.wrap(function _callee3$(_context3) {
 					while (1) {
@@ -145,12 +146,11 @@ var Model = function () {
 								stmt = _squel2.default.update().table(this.table).setFields(setFields);
 
 
-								(0, _lodash.each)(where, function (val) {
-									stmt.where(val);
+								(0, _lodash.each)(where, function (val, index) {
+									stmt.where(val, params[index]);
 								});
 
 								stmt = stmt.toString();
-
 								_context3.next = 5;
 								return this.execute(stmt);
 

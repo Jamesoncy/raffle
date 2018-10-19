@@ -25,11 +25,11 @@ class RaffleModel extends Model {
 			status: 1,
 			date_updated
 		};
-		return await this.update([`customercode = ${code}`], fields);
+		return await this.update([`customercode = ?`], fields, [ code ]);
 	}
 
 	async removeWinner(code) {
-		return await this.update([`customercode = ${code}`], { status: NOT_ACTIVE, prize: `` });
+		return await this.update([`customercode = ?`], { status: NOT_ACTIVE, prize: `` }, [ code ]);
 	}
 }
 
