@@ -24,7 +24,7 @@ var _koaBodyParser = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/nod
 
 var _koaBodyParser2 = _interopRequireDefault(_koaBodyParser);
 
-var _routes = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/core/config/routes.js');
+var _routes = require('./core/Config/routes.js');
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -36,15 +36,11 @@ var _underscore = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_m
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var _policies = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/core/Config/policies');
+var _policies = require('./core/Config/policies');
 
 var _policies2 = _interopRequireDefault(_policies);
 
 var _composeMiddleware = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/compose-middleware');
-
-var _koaConvert = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/koa-convert');
-
-var _koaConvert2 = _interopRequireDefault(_koaConvert);
 
 var _koaViews = require('/Users/jamesroncesvalles/Desktop/raffle/raffle/node_modules/koa-views');
 

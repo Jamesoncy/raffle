@@ -1,3 +1,5 @@
+
+require('dotenv').load();
 import 'babel-polyfill';
 import 'babel-core/register';
 import Koa from 'koa';
@@ -5,13 +7,11 @@ import json from 'koa-json';
 import koa_router from 'koa-router2';
 import kbd from 'koa-better-body';
 import bodyParser from 'koa-body-parser';
-import routeFiles from 'config/routes.js';
+import routeFiles from './core/Config/routes.js';
 import requireAll from 'require.all';
 import _ from 'underscore';
-require('dotenv').load();
-import policy from 'Config/policies';
+import policy from './core/Config/policies';
 import {compose} from 'compose-middleware';
-import convert from 'koa-convert';
 import views from 'koa-views';
 import cookie from 'koa-cookie';
 import validate from 'koa-async-validator';
